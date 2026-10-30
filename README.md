@@ -56,6 +56,9 @@ Use `./install.sh --user` for `~/Applications`, or pass another Applications dir
 quit and reopen an already-running app. The installer does not launch it or change
 the default Markdown handler. The app is ad-hoc signed for local use.
 The included Mermaid bundle means Node/npm are **not required to build or run**.
+The app icon is generated from `Resources/AppIcon.svg` using native macOS tools
+during the build. Regenerate it separately with `swift scripts/build_icon.swift`;
+PNG sizes and the ICNS file stay in `.build/`.
 To regenerate that bundle, install Node 22.12+ and run:
 
 ```sh

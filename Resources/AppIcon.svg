@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>MD View</title>
+  <desc>Markdown document and flowchart on a Catppuccin Mocha tile.</desc>
+  <metadata>
+    Design reference: built-in image_gen; final artwork recreated as editable SVG.
+    Reference prompt: Use case: logo-brand.
+    Asset type: production macOS application icon for MD View, a compact native Markdown reader with Mermaid diagram support.
+    Create one polished, front-facing macOS icon on a square 1024x1024 transparent canvas. A single deep navy-charcoal rounded-square tile (#1e1e2e, Catppuccin Mocha) occupies about 84% of the canvas, with a subtle bevel and restrained soft shadow. On the tile, a clean ivory document sheet with a folded upper-right corner. The document carries a large, exceptionally clear dark Markdown M and downward arrow as its dominant central symbol. Beneath this, integrate one very simple lavender-and-blue three-node flowchart symbol, with thick connectors and rounded nodes, communicating diagram viewing. Use lavender #cba6f7 and blue #89b4fa as restrained accents. Refined tactile native-app finish, simple geometry, strong silhouette and contrast, legible at 32px and 16px. The tile is centered with transparent outside corners and padding. No perspective, no scenery, no surrounding UI, no extra words or labels, no watermark. Only the M and arrow are allowed glyphs.
+  </metadata>
+  <defs>
+    <linearGradient id="tile" x1="0" y1="0" x2=".6" y2="1">
+      <stop stop-color="#41455d"/><stop offset=".12" stop-color="#2b2d43"/>
+      <stop offset=".7" stop-color="#1e1e2e"/><stop offset="1" stop-color="#11111b"/>
+    </linearGradient>
+    <linearGradient id="rim" x2="0" y2="1">
+      <stop stop-color="#8a91b8" stop-opacity=".6"/><stop offset=".2" stop-color="#45475a" stop-opacity=".25"/>
+      <stop offset="1" stop-color="#11111b" stop-opacity=".7"/>
+    </linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2=".8" y2="1">
+      <stop stop-color="#ffffff"/><stop offset=".6" stop-color="#fafafa"/><stop offset="1" stop-color="#e4e5eb"/>
+    </linearGradient>
+    <linearGradient id="fold" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#ffffff"/><stop offset=".7" stop-color="#f0f1f6"/><stop offset="1" stop-color="#d5d8e5"/>
+    </linearGradient>
+    <linearGradient id="ink" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#232536"/><stop offset="1" stop-color="#161622"/>
+    </linearGradient>
+    <linearGradient id="lavender" x2="0" y2="1">
+      <stop stop-color="#d8bfff"/><stop offset=".45" stop-color="#cba6f7"/><stop offset="1" stop-color="#ad83ee"/>
+    </linearGradient>
+    <linearGradient id="blue" x2="0" y2="1">
+      <stop stop-color="#a1c6ff"/><stop offset=".4" stop-color="#89b4fa"/><stop offset="1" stop-color="#6896e3"/>
+    </linearGradient>
+    <filter id="shadow" x="-.2" y="-.2" width="1.4" height="1.5">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <filter id="soft" x="-.3" y="-.3" width="1.6" height="1.8">
+      <feGaussianBlur stdDeviation="5"/>
+    </filter>
+    <path id="sheet" d="M300 172H646Q658 172 668 184L770 286Q788 304 788 326V788Q788 852 724 852H300Q236 852 236 788V236Q236 172 300 172Z"/>
+  </defs>
+  <rect x="80" y="94" width="864" height="864" rx="186" fill="#000000" opacity=".28" filter="url(#shadow)"/>
+  <rect x="80" y="80" width="864" height="864" rx="186" fill="url(#tile)" stroke="url(#rim)" stroke-width="5"/>
+  <use href="#sheet" y="12" fill="#000000" opacity=".35" filter="url(#shadow)"/>
+  <use href="#sheet" fill="url(#paper)" stroke="#e2e4ed"/>
+  <path d="M646 180V262Q646 318 702 318H782L646 180Z" fill="#161622" opacity=".2" filter="url(#soft)"/>
+  <path d="M646 172V254Q646 310 702 310H788L646 172Z" fill="url(#fold)"/>
+  <path d="M300 337Q300 331 306 331H350Q356 331 361 338L416 408L473 338Q478 331 484 331H526Q532 331 532 337V535Q532 541 526 541H480Q474 541 474 535V436L431 489Q425 496 418 496Q411 496 405 489L358 436V535Q358 541 352 541H306Q300 541 300 535Z" fill="url(#ink)"/>
+  <path d="M626 338H674Q680 338 680 344V450H720Q730 450 723 458L657 535Q650 543 643 535L577 458Q570 450 580 450H620V344Q620 338 626 338Z" fill="url(#ink)"/>
+  <path d="M512 650V683Q512 705 488 705H394Q372 705 372 727V746M512 683Q512 705 536 705H630Q652 705 652 727V746" fill="none" stroke="#77a8f2" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  <g opacity=".18" fill="#11111b" filter="url(#soft)" transform="translate(0 6)">
+    <rect x="432" y="584" width="160" height="72" rx="24"/>
+    <rect x="300" y="732" width="144" height="80" rx="25"/>
+    <rect x="580" y="732" width="144" height="80" rx="25"/>
+  </g>
+  <rect x="432" y="584" width="160" height="72" rx="24" fill="url(#lavender)" stroke="#e0caff" stroke-width="2"/>
+  <rect x="300" y="732" width="144" height="80" rx="25" fill="url(#blue)" stroke="#b8d5ff" stroke-width="2"/>
+  <rect x="580" y="732" width="144" height="80" rx="25" fill="url(#blue)" stroke="#b8d5ff" stroke-width="2"/>
+</svg>

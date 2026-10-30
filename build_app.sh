@@ -8,6 +8,7 @@ if [[ ! -f Resources/mermaid.js ]]; then
   npm run bundle
 fi
 swift build -c release --disable-sandbox --cache-path .build/cache
+swift scripts/build_icon.swift
 app="dist/MD View.app/Contents"
 mkdir -p "$app/MacOS" "$app/Resources"
 cp .build/release/MDView "$app/MacOS/MDView"
@@ -16,6 +17,7 @@ cp Resources/Info.plist "$app/Info.plist"
 cp Resources/diagram.html Resources/mermaid.js "$app/Resources/"
 cp Resources/THIRD-PARTY-NOTICES.txt "$app/Resources/"
 cp LICENSE "$app/Resources/LICENSE"
+cp .build/AppIcon.icns "$app/Resources/AppIcon.icns"
 codesign --force --sign - "$app/MacOS/MermaidWorker"
 codesign --force --sign - "dist/MD View.app"
 echo "Built dist/MD View.app"
