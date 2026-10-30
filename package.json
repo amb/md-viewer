@@ -1,0 +1,6 @@
+{
+  "private": true,
+  "license": "MIT",
+  "scripts": {"bundle": "esbuild Web/mermaid.js --bundle --format=iife --minify --outfile=Resources/mermaid.js --legal-comments=eof"},
+  "devDependencies": {"esbuild": "0.28.2", "mermaid": "12.2.0"}
+}

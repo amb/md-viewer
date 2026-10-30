@@ -1,0 +1,15 @@
+elkjs 0.9.3
+
+The source code for elkjs is available under the Eclipse Public License 2.0.
+Source and build instructions for the revision published as npm elkjs 0.9.3:
+https://github.com/kieler/elkjs/tree/a8304cf79fde75bc2ab1a89d28320f53f8637436
+Source archive:
+https://github.com/kieler/elkjs/archive/a8304cf79fde75bc2ab1a89d28320f53f8637436.tar.gz
+
+Upstream Eclipse Layout Kernel Java source and source history:
+https://github.com/eclipse/elk
+
+The bundled Mermaid JavaScript includes generated/minified elkjs code. The
+upstream source remains licensed under EPL-2.0; a copy of that license is
+included in THIRD-PARTY-NOTICES.txt. MD View's MIT license does not replace
+the licenses of third-party components.
