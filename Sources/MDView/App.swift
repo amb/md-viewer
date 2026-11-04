@@ -2,7 +2,7 @@ import AppKit
 import UniformTypeIdentifiers
 
 final class ReadingView: NSTextView {
-    var openFile: ((URL) -> Void)?
+    var openFile: ((URL) -> Bool)?
     var openDiagram: ((NSImage, Int?) -> Void)?
     var appearanceChanged: (() -> Void)?
     override func viewDidChangeEffectiveAppearance() {
@@ -25,6 +25,7 @@ final class ReadingView: NSTextView {
     }
     static func make(in scroll: NSScrollView) -> ReadingView {
         let view = ReadingView(frame: NSRect(origin: .zero, size: scroll.contentSize))
+        view.textContainer?.replaceLayoutManager(MarkdownLayoutManager())
         view.isEditable = false
         view.isSelectable = true
         view.isRichText = true
@@ -39,6 +40,8 @@ final class ReadingView: NSTextView {
         view.minSize = .zero
         view.maxSize = NSSize(width: CGFloat.greatestFiniteMagnitude, height: CGFloat.greatestFiniteMagnitude)
         scroll.documentView = view
+        view.registerForDraggedTypes([.fileURL])
+        scroll.registerForDraggedTypes([.fileURL])
         return view
     }
     var readingWidth: CGFloat {
@@ -69,13 +72,22 @@ final class ReadingView: NSTextView {
     }
 
     override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
-        sender.draggingPasteboard.canReadObject(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) ? .copy : []
+        guard openFile != nil, sender.draggingSourceOperationMask.contains(.copy),
+              sender.draggingPasteboard.canReadObject(forClasses: [NSURL.self], options: [.urlReadingFileURLsOnly: true]) else { return [] }
+        return .copy
+    }
+    // NSTextView's default drag handling expects editable text; these drops open a document instead.
+    override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
+        draggingEntered(sender)
+    }
+    override func prepareForDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        !draggingEntered(sender).isEmpty
     }
     override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
-        guard let urls = sender.draggingPasteboard.readObjects(forClasses: [NSURL.self],
+        guard prepareForDragOperation(sender),
+              let urls = sender.draggingPasteboard.readObjects(forClasses: [NSURL.self],
             options: [.urlReadingFileURLsOnly: true]) as? [URL], let url = urls.first else { return false }
-        openFile?(url)
-        return true
+        return openFile?(url) ?? false
     }
 
     override func setFrameSize(_ newSize: NSSize) {
@@ -167,9 +179,8 @@ final class Viewer: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTextVie
         scroll.borderType = .noBorder
         text = ReadingView.make(in: scroll)
         text.delegate = self
-        text.openFile = { [weak self] in self?.open($0) }
+        text.openFile = { [weak self] in self?.open($0) ?? false }
         text.openDiagram = { [weak self] image, id in self?.showDiagram(image, id: id) }
-        text.registerForDraggedTypes([.fileURL])
         text.appearanceChanged = { [weak self] in self?.updateDiagramTheme() }
         scroll.navigate = { [weak self] in self?.navigate($0) }
         scroll.canNavigate = { [weak self] in self?.history.target($0) != nil }

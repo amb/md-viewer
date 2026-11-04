@@ -100,6 +100,20 @@ final class NavigationScrollView: NSScrollView {
     var zoom: ((Int) -> Void)?
     private var zoomRemainder: CGFloat = 0
 
+    // The scroll view receives drops over empty space outside the text view.
+    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        (documentView as? ReadingView)?.draggingEntered(sender) ?? []
+    }
+    override func draggingUpdated(_ sender: NSDraggingInfo) -> NSDragOperation {
+        (documentView as? ReadingView)?.draggingUpdated(sender) ?? []
+    }
+    override func prepareForDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        (documentView as? ReadingView)?.prepareForDragOperation(sender) ?? false
+    }
+    override func performDragOperation(_ sender: NSDraggingInfo) -> Bool {
+        (documentView as? ReadingView)?.performDragOperation(sender) ?? false
+    }
+
     override func setFrameSize(_ newSize: NSSize) {
         super.setFrameSize(newSize)
         modalOverlay?.frame = bounds

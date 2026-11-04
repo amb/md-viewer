@@ -57,6 +57,8 @@ trap 'exit 130' INT
 trap 'exit 143' TERM
 /usr/bin/ditto "$source_app" "$stage/MD View.app"
 /usr/bin/codesign --verify --strict "$stage/MD View.app"
+# ditto preserves the old bundle date; refresh it so macOS notices updated icons.
+/usr/bin/touch "$stage/MD View.app"
 if [[ -e "$target_app" ]]; then /bin/mv "$target_app" "$stage/previous.app"; fi
 /bin/mv "$stage/MD View.app" "$target_app"
 /System/Library/Frameworks/CoreServices.framework/Frameworks/LaunchServices.framework/Support/lsregister -f "$target_app"

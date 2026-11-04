@@ -7,6 +7,7 @@ extension NSAttributedString.Key {
     static let diagramPreview = Self("MDView.diagramPreview")
     static let diagramFontSize = Self("MDView.diagramFontSize")
     static let headingID = Self("MDView.heading")
+    static let inlineCode = Self("MDView.inlineCode")
 }
 
 struct DiagramJob: Codable {
@@ -55,6 +56,7 @@ final class NativeMarkdown {
         case let n as InlineCode:
             a[.font] = NSFont.monospacedSystemFont(ofSize: size - 1, weight: .regular)
             a[.backgroundColor] = NSColor.quaternaryLabelColor
+            a[.inlineCode] = true
             append(n.code, a)
         case let n as CodeBlock:
             a[.font] = NSFont.monospacedSystemFont(ofSize: size - 2, weight: .regular)
@@ -75,6 +77,11 @@ final class NativeMarkdown {
             } else {
                 let code = n.code.hasSuffix("\n") ? n.code : n.code + "\n"
                 text.append(SyntaxHighlighter.highlight(code, language: n.language, attributes: a))
+                // Keep code rows compact, with normal paragraph spacing after the block.
+                let endingStyle = style.mutableCopy() as! NSMutableParagraphStyle
+                endingStyle.paragraphSpacing = paragraph(depth).paragraphSpacing
+                let lastLine = text.mutableString.paragraphRange(for: NSRange(location: text.length - 1, length: 1))
+                text.addAttribute(.paragraphStyle, value: endingStyle, range: lastLine)
             }
         case let n as Heading:
             a[.font] = NSFont.systemFont(ofSize: size + CGFloat(max(0, 7 - n.level)) * 2, weight: .semibold)
